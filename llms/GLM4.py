@@ -21,9 +21,20 @@ class LLM_GLM4():
 
     def add_tool(self, tool):
         self.tools.append(tool)
-        
-    def generate(self):
-        response = self.model.chat.completions.create(
-            model="glm-4",  # 填写需要调用的模型名称
-            messages=self.history,
-        )
+    
+    def set_prompt(self, prompt):
+        self.history.append({"role": "system", "content": prompt})
+    
+    def add_user_message(self, message):
+        self.history.append({"role": "user", "content": message})
+
+    def generate_response(self):
+        try:
+            response = self.model.chat.completions.create(
+                model="glm-4",  # 填写需要调用的模型名称
+                messages=self.history,
+            )
+            self.add_history(response.choices[0].message)
+            return 200, response.choices[0].message.content
+        except:
+            return 500, "模型调用失败"

@@ -1,1 +1,2 @@
 GLM4_API_KEY = "YOUR_API_KEY"
+max_depth=10
