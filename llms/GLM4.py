@@ -34,7 +34,8 @@ class LLM_GLM4():
                 model="glm-4",  # 填写需要调用的模型名称
                 messages=self.history,
             )
-            self.add_history(response.choices[0].message)
+            # print(response)
+            self.add_history({"role": response.choices[0].message.role, "content": response.choices[0].message.content})
             return 200, response.choices[0].message.content
-        except:
-            return 500, "模型调用失败"
+        except Exception as e:
+            return 500, "模型调用失败: "+ str(e)

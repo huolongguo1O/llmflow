@@ -1,10 +1,11 @@
 import time
 import config
 class LLMFlow():
-    def __init__(self, prompt, llm):
+    def __init__(self, prompt, llm, debug=False):
         self.prompt = prompt
         self.llm = llm
         self.run_depth = 0
+        self.debug = debug
         for i in self.prompt:
             self.llm.add_prompt(prompt=i)
 
@@ -13,6 +14,8 @@ class LLMFlow():
         if text is not None:
             self.llm.add_user_message(text)
         ret = self.llm.generate_response()
+        if self.debug:
+            print(ret)
         if ret[0] == 502:
             time.sleep(1)
             self.run_depth += 1
