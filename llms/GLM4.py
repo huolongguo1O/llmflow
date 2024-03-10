@@ -1,8 +1,8 @@
-from zhipuai import Zhipuai
-from .. import config
+import zhipuai
+import config
 class LLM_GLM4():
     def __init__(self):
-        self.model = Zhipuai(API_KEY=config.GLM4_API_KEY)
+        self.model = zhipuai.ZhipuAI(api_key=config.GLM4_API_KEY)
         self.history = []
         self.tools=[]
         self.generate_config={}
@@ -22,7 +22,7 @@ class LLM_GLM4():
     def add_tool(self, tool):
         self.tools.append(tool)
     
-    def set_prompt(self, prompt):
+    def add_prompt(self, prompt):
         self.history.append({"role": "system", "content": prompt})
     
     def add_user_message(self, message):

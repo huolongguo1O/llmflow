@@ -1,12 +1,12 @@
 import time
-from .. import config
+import config
 class LLMFlow():
     def __init__(self, prompt, llm):
         self.prompt = prompt
         self.llm = llm
         self.run_depth = 0
         for i in self.prompt:
-            self.llm.add_prompt(i)
+            self.llm.add_prompt(prompt=i)
 
     def run(self, text):
         assert self.run_depth < config.max_depth
