@@ -1,0 +1,1 @@
+zhipuai # if use GLM4
